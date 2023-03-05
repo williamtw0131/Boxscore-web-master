@@ -1,0 +1,41 @@
+{% extends "boxscore/base.html" %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Step2. Update games.</a></p>
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'team_signup' %}">Step1. Sign up a team</a></p>
+    <p><a href="{% url 'add_stat' %}">Step3. Add stat for a game</a></p>
+    <p><a href="/stat/search">#. Search for statics</a></p>
+    <p><a href="{% url 'edit' %}">#. Edit statics</a></p>
+    <p>Adding games...</p>
+</div>
+
+<form method="POST" action="{% url 'add_game' %}" class="add_game">{% csrf_token %}
+
+    <p><label>Name of your teams:&nbsp</label>
+      <select name="us">
+        <option disabled selected value="">My Teams</option>
+        {% for stat in statics %}
+        <option value={{ stat.team_name_under_Team }}>{{ stat.team_name_under_Team }}</option>
+        {% endfor %}
+      </select>
+    </p>
+
+    <p><label>Name of opponent:&nbsp</label><input type="text" name="opponent" placeholder="Team name" maxlength="20"></p>
+    {% if error %}
+    <div class="error">
+      <strong><p style="color: red;">{{ error }}</p></strong>
+    </div>
+    {% endif %}
+    {% if succeed %}
+    <div class="succeed">
+      <strong><p>{{ succeed }}</p></strong>
+    </div>
+    {% endif %}
+    <p><button type="submit" name="button" class="submit_button">Update games</button></p>
+</form>
+
+
+{% endblock %}

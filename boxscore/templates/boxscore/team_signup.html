@@ -1,0 +1,25 @@
+{% extends "boxscore/base.html" %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Step1. Sign up for a team</a></p>
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'add_game' %}">Step2. Update games</a></p>
+    <p><a href="{% url 'add_stat' %}">Step3. Add stat for a game</a></p>
+    <p><a href="/stat/search">#. Search for statics</a></p>
+    <p><a href="{% url 'edit' %}">#. Edit statics</a></p>
+    <p>Signing up for a team...</p>
+</div>
+<form method="POST" action="{% url 'team_signup' %}" class="team_signup">{% csrf_token %}
+
+    <p><label>Team name:&nbsp</label><input type="text" name="team_name" placeholder="Team name" maxlength="20"></p>
+
+    {% if error %}
+    <div class="error">
+      <strong><p style="color: red;">{{ error }}</p></strong>
+    </div>
+    {% endif %}
+    <p><button type="submit" name="button" class="submit_button">Sign up</button></p>
+</form>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'boxscore/base.html' %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Step3. Add stat for a game</a></p>
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'team_signup' %}">Step1. Sign up a team</a></p>
+    <p><a href="{% url 'add_game' %}">Step2. Update games</a></p>
+    <p><a href="/stat/search">#. Search for statics</a></p>
+    <p><a href="{% url 'edit' %}">#. Edit statics</a></p>
+    <p>Adding new statics...</p>
+</div>
+<form class="stat_table" method="POST">{% csrf_token %}
+  <div style="overflow-x:auto;">
+    <table style="width: 100%;">
+        <tr>
+            <th>Game name</th>
+            <!--<th>Team name</th>-->
+            <th>Player number</th>
+            <th>FGM</th>
+            <th>FGA</th>
+            <th>3PM</th>
+            <th>3PA</th>
+            <th>FTM</th>
+            <th>FTA</th>
+            <th>OREB</th>
+            <th>DREB</th>
+            <th>AST</th>
+            <th>STL</th>
+            <th>BLK</th>
+            <th>TOV</th>
+            <th>PF</th>
+        </tr>
+        <tr>
+            <td>
+              <select name="game_name">
+                <option disabled selected>Game list</option>
+                {% for game in game_list %}
+                <option value={{ game.id }}>{{ game.us }} v.s. {{ game.opponent }}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td><input type="number" name="player" size="number" min="0" max="99"></td>
+            <td><input type="number" name="fgm" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="fga" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="threepm" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="threepa" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="ftm" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="fta" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="oreb" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="dreb" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="ast" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="stl" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="blk" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="tov" size="number" value="0" min="0" max="99"></td>
+            <td><input type="number" name="pf" size="number" value="0" min="0" max="5"></td>
+        </tr>
+    </table>
+    {% if error %}
+    <div class="error">
+      <strong><p style="color: red;">{{ error }}</p></strong>
+    </div>
+    {% endif %}
+    <button type="submit" name="button" class="submit_button">Submit</button>
+  </div>
+</form>
+{% endblock %}

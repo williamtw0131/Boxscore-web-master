@@ -1,0 +1,57 @@
+{% extends 'boxscore/base.html' %}
+
+{% block content %}
+      <div class="header">
+          <p><a href="/">This is a boxscore-Average statics</a></p>
+          {% if user.is_authenticated %}
+          <p>Hi! {{ user.username }}</p>
+          <p><a href="{% url 'logout' %}">Log out</a></p>
+          <p><a href="{% url 'team_signup' %}">Step1. Sign up a team</a></p>
+          <p><a href="{% url 'add_game' %}">Step2. Update games</a></p>
+          <p><a href="{% url 'add_stat' %}">Step3. Add stat for a game</a></p>
+          <p><a href="/stat/search">#. Search for statics</a></p>
+          <p><a href="{% url 'edit' %}">#. Edit statics</a></p>
+          <p>Average statics of team {{ team_name }}</p>
+          {% else %}
+          <p><a href="{% url 'login' %}">Login</a></p>
+          <p><a href="/stat/register">Register</a></p>
+          {% endif %}
+      </div>
+
+      <div style="overflow-x:auto;">
+          <table style="width: 100%">
+              <tr>
+                  <th>Player number</th>
+                  <th>FG%</th>
+                  <th>3P%</th>
+                  <th>FT%</th>
+                  <th>OREB</th>
+                  <th>DREB</th>
+                  <th>REB</th>
+                  <th>AST</th>
+                  <th>STL</th>
+                  <th>BLK</th>
+                  <th>TOV</th>
+                  <th>PF</th>
+                  <th>PTS</th>
+              </tr>
+              {% for stat in statics %}
+              <tr>
+                  <td>{{ stat.player }}</td>
+                  <td>{{ stat.fgave }}</td>
+                  <td>{{ stat.threepave }}</td>
+                  <td>{{ stat.ftave }}</td>
+                  <td>{{ stat.orebave }}</td>
+                  <td>{{ stat.drebave }}</td>
+                  <td>{{ stat.rebave }}</td>
+                  <td>{{ stat.astave }}</td>
+                  <td>{{ stat.stlave }}</td>
+                  <td>{{ stat.blkave }}</td>
+                  <td>{{ stat.tovave }}</td>
+                  <td>{{ stat.pfave }}</td>
+                  <td>{{ stat.ptsave }}</td>
+              </tr>
+              {% endfor %}
+          </table>
+      </div>
+{% endblock %}

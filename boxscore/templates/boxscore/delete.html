@@ -1,0 +1,59 @@
+{% extends 'boxscore/base.html' %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Delete stats.</a></p>
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'team_signup' %}">Step1. Sign up a team</a></p>
+    <p><a href="{% url 'add_game' %}">Step2. Update games</a></p>
+    <p><a href="{% url 'add_stat' %}">Step3. Add stat for a game</a></p>
+    <p><a href="/stat/search">#. Search for statics</a></p>
+    <p>Deleting...</p>
+</div>
+<form class="stat_table" method="POST">{% csrf_token %}
+  <div style="overflow-x:auto;">
+    <table style="width: 100%;">
+        <tr>
+            <th>Game name</th>
+            <th>Team name</th>
+            <th>Player number</th>
+            <th>FGM</th>
+            <th>FGA</th>
+            <th>3PM</th>
+            <th>3PA</th>
+            <th>FTM</th>
+            <th>FTA</th>
+            <th>OREB</th>
+            <th>DREB</th>
+            <th>AST</th>
+            <th>STL</th>
+            <th>BLK</th>
+            <th>TOV</th>
+            <th>PF</th>
+        </tr>
+        {% for stat in stat %}
+        <tr>
+            <td>{{ stat.team_name }} v.s {{ stat.opponent }}</td>
+            <td>{{ stat.team_name }}</td>
+            <td>{{ stat.player }}</td>
+            <td>{{ stat.fgm }}</td>
+            <td>{{ stat.fga }}</td>
+            <td>{{ stat.threepm }}</td>
+            <td>{{ stat.threepa }}</td>
+            <td>{{ stat.ftm }}</td>
+            <td>{{ stat.fta }}</td>
+            <td>{{ stat.oreb }}</td>
+            <td>{{ stat.dreb }}</td>
+            <td>{{ stat.ast }}</td>
+            <td>{{ stat.stl }}</td>
+            <td>{{ stat.blk }}</td>
+            <td>{{ stat.tov }}</td>
+            <td>{{ stat.pf }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button type="submit" name="button" class="submit_button">Delete</button>
+  </div>
+</form>
+{% endblock %}

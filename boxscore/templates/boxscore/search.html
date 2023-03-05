@@ -1,0 +1,33 @@
+{% extends 'boxscore/base.html' %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Search for statics</a></p>
+
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'team_signup' %}">Step1. Sign up a team</a></p>
+    <p><a href="{% url 'add_game' %}">Step2. Update games</a></p>
+    <p><a href="{% url 'add_stat' %}">Step3. Add stat for a game</a></p>
+    <p><a href="{% url 'edit' %}">#. Edit statics</a></p>
+    <p>Searching...</p>
+</div>
+<form method="POST" action="{% url 'search' %}" class="search">{% csrf_token %}
+
+    <p><label>Search by team name:&nbsp</label>
+      <select name="search_by_team_name">
+        <option disabled selected value="">Team name</option>
+        {% for stat in statics %}
+        <option value={{ stat.team_name_under_Team }}>{{ stat.team_name_under_Team }}</option>
+        {% endfor %}
+      </select>
+    </p>
+
+    <p><label>Search by player's number: &nbsp</label><input type="number" name="search_by_player" placeholder="player's number"></p>
+
+    {% if error %}
+    <strong><p style="color: red;">{{ error }}</p></strong>
+    {% endif %}
+    <p><button type="submit" name="button" class="submit_button">Search</button></p>
+</form>
+{% endblock %}

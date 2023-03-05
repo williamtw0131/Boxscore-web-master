@@ -1,0 +1,64 @@
+{% extends 'boxscore/base.html' %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Edit stats.</a></p>
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'team_signup' %}">Step1. Sign up a team</a></p>
+    <p><a href="{% url 'add_game' %}">Step2. Update games</a></p>
+    <p><a href="{% url 'add_stat' %}">Step3. Add stat for a game</a></p>
+    <p><a href="/stat/search">#. Search for statics</a></p>
+    <p>Editing...</p>
+</div>
+<form class="stat_table" method="POST">{% csrf_token %}
+  <div style="overflow-x:auto;">
+    <table style="width: 100%;">
+        <tr>
+            <th>Game name</th>
+            <th>Team name</th>
+            <th>Player number</th>
+            <th>FGM</th>
+            <th>FGA</th>
+            <th>3PM</th>
+            <th>3PA</th>
+            <th>FTM</th>
+            <th>FTA</th>
+            <th>OREB</th>
+            <th>DREB</th>
+            <th>AST</th>
+            <th>STL</th>
+            <th>BLK</th>
+            <th>TOV</th>
+            <th>PF</th>
+        </tr>
+        {% for stat in stat %}
+        <tr>
+            <td>{{ stat.team_name }} v.s {{ stat.opponent }}</td>
+            <td>{{ stat.team_name }}</td>
+            <td>{{ stat.player }}</td>
+            <td><input type="number" name="fgm" size="number" value="{{ stat.fgm }}" min="0" max="99"></td>
+            <td><input type="number" name="fga" size="number" value="{{ stat.fga }}" min="0" max="99"></td>
+            <td><input type="number" name="threepm" size="number" value="{{ stat.threepm }}" min="0" max="99"></td>
+            <td><input type="number" name="threepa" size="number" value="{{ stat.threepa }}" min="0" max="99"></td>
+            <td><input type="number" name="ftm" size="number" value="{{ stat.ftm }}" min="0" max="99"></td>
+            <td><input type="number" name="fta" size="number" value="{{ stat.fta }}" min="0" max="99"></td>
+            <td><input type="number" name="oreb" size="number" value="{{ stat.oreb }}" min="0" max="99"></td>
+            <td><input type="number" name="dreb" size="number" value="{{ stat.dreb }}" min="0" max="99"></td>
+            <td><input type="number" name="ast" size="number" value="{{ stat.ast }}" min="0" max="99"></td>
+            <td><input type="number" name="stl" size="number" value="{{ stat.stl }}" min="0" max="99"></td>
+            <td><input type="number" name="blk" size="number" value="{{ stat.blk }}" min="0" max="99"></td>
+            <td><input type="number" name="tov" size="number" value="{{ stat.tov }}" min="0" max="99"></td>
+            <td><input type="number" name="pf" size="number" value="{{ stat.pf }}" min="0" max="5"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if error %}
+    <div class="error">
+      <strong><p style="color: red;">{{ error }}</p></strong>
+    </div>
+    {% endif %}
+    <button type="submit" name="button" class="submit_button">Edit</button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "boxscore/base.html" %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Matches.</a></p>
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'team_signup' %}">Step1. Sign up a team</a></p>
+    <p><a href="{% url 'add_game' %}">Step2. Update games</a></p>
+    <p><a href="{% url 'add_stat' %}">Step3. Add stat for a game</a></p>
+    <p><a href="/stat/search">#. Search for statics</a></p>
+    <p><a href="{% url 'edit' %}">#. Edit statics</a></p>
+    <p>All matches:</p>
+</div>
+{% if not games %}
+<div class="error">
+  <strong><p>You haven't updates any games yet.</p></strong>
+</div>
+{% else %}
+<div style="overflow-x:auto;">
+    <table style="width: 40%;">
+      <tr>
+        <th>My Team</th>
+        <th>Opponent</th>
+      </tr>
+      {% for game in games %}
+      <tr>
+        <td>{{ game.us }}</td>
+        <td>{{ game.opponent }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+{% endblock %}

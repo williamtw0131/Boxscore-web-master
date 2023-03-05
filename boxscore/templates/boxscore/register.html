@@ -1,0 +1,32 @@
+{% extends 'boxscore/base.html' %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Sign up an account.</a></p>
+    <!--<p><a href="{% url 'add_stat' %}">Add stat</a></p>-->
+    {% if user.is_authenticated %}
+    <p>Hi! {{ user.username }}</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+    <p><a href="{% url 'team_signup' %}">Sign up a team</a></p>
+    <p><a href="{% url 'add_stat' %}">Add stat</a></p>
+    <p><a href="/stat/search">Search for statics</a></p>
+    <p><a href="{% url 'edit' %}">#. Edit statics</a></p>
+    <p>You already signed up and logged in.</p>
+    {% else %}
+    <p>Registering...</p>
+    {% endif %}
+</div>
+
+{% if not user.is_authenticated %}
+<form method="POST" action="{% url 'register' %}" class="register">{% csrf_token %}
+    <p><label>Username:&nbsp<input type="text" name="username" placeholder="less than 30 letters"></label></p>
+    <p><label>Password:&nbsp<input type="password" name="password" placeholder=""></label></p>
+    <p><label>Email:&nbsp<input type="email" name="email" placeholder="email address"></label></p>
+    {% if error %}
+    <strong><p style="color: red;">{{ error }}</p></strong>
+    {% endif %}
+    <p><button type="submit" name="button">Register</button></p>
+</form>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,73 @@
+.header {
+    background: salmon;
+    color: unset;
+    font-size: 30px;
+    font-style: italic;
+    font-family: fantasy;
+    padding: 17px;
+}
+a {
+  color: crimson;
+  text-decoration: overline;
+}
+
+#add_stat {
+  width: 100%;
+}
+
+body {
+
+}
+
+table {
+  font-size: 10pt;
+  font-family: monospace;
+}
+
+th {
+  background-color: #0099CC;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+tr:hover {
+  background-color: rgba(140,140,140,.75);
+}
+
+
+table, th, td {
+  border-left: 2px solid rgba(0,0,0,.075);
+  height: 30px;
+  text-align: center;
+}
+.error {
+  margin: 10 10 0px;
+  font-family: monospace;
+}
+.succeed {
+  margin: 10 10 0px;
+  font-family: monospace;
+}
+strong.error {
+  color: red;
+}
+strong.succeed {
+  color: green;
+}
+
+form.stat_table {
+  font-family: monospace;
+}
+
+form.search, form.team_signup, form.register, form.add_game, form.login {
+  font-family: monospace;
+  margin: 10 10 0px;
+}
+
+button.submit_button {
+  margin: 10 10 0px;
+  font-family: monospace;
+}

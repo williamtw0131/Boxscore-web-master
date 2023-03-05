@@ -1,0 +1,21 @@
+{% extends 'boxscore/base.html' %}
+
+{% block content %}
+<div class="header">
+    <p><a href="/">This is a boxscore-Login.</a></p>
+    <p><a href="/stat/register">Register</a></p>
+    <p>Logging in...</p>
+</div>
+
+<form method="POST" action="{% url 'login' %}" class="login">{% csrf_token %}
+    <p><label>Username:&nbsp{{ form.username }}</label></p>
+    <p><label>Password:&nbsp{{ form.password }}</label></p>
+    {% if form.errors %}
+    <strong><p style="color: red;">Your username and password didn't match. Please try again.</p></strong>
+    {% endif %}
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+
+</form>
+
+{% endblock %}
